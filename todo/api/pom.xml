@@ -17,36 +17,38 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!-- 後から追加(追加必須) -->
-		<!-- <dependency>
-			<groupId>mysql</groupId> 
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.30</version> 
-		</dependency> -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>  -->
+		<!-- 
+			Spring MVC を使用して、RESTful を含む Web アプリケーションを構築するためのスターター。
+			デフォルトの埋め込みコンテナーとして Tomcat を使用
+		 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- lombokアノテーションを使用する為の設定 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.20</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency>
+		<!-- HikariCP 接続プールで JDBC を使用するためのスターター -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency> -->
-		<!-- 後から追加(追加必須) -->
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<!-- H2DB接続設定 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- 自動構成サポート、ロギング、YAML を含むコアスターター -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
+		<!-- SpringBoot上のコードをテストするのに必要なライブラリを使用可能にする -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

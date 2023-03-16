@@ -9,7 +9,7 @@ public class Task {
 
 	private int person_id;
 
-	private String task;
+	private String name;
 
     private String description;
 }
