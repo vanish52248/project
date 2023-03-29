@@ -18,6 +18,8 @@ export const GetTask = () => {
 		.then(response => {
 			console.info("タスク取得 完了");
 			const temp_list = [];
+			// ★.forEach(fanction())については、無名関数という。
+			// 一回しか使用しない関数の為に名前を考える作業や、グローバルオブジェクトの汚染などを防ぐ為に使用される。
 			response.data.forEach(function(value, index, array){
 				const temp_obj = {};
 				//配列内のオブジェクトの各要素をループ

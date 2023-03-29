@@ -17,7 +17,7 @@ export const PostTask = () => {
 
 
     const taskPost = () => {
-        // 必須フィールドの名前のinputに未入力であれば送信しない
+        // 名前は必須カラムとしてrequired属性を<input>タグにつけているので入力欄が空以外のみ更新を書けるようにする
         if (name !== "") {
             axios.request({
                 method: 'POST',
