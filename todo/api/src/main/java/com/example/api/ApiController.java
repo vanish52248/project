@@ -2,6 +2,8 @@ package com.example.api;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
+// プロパティ呼び出しの為のインポート
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,14 @@ public class ApiController {
 
     @Autowired
 	private JdbcTemplate jdbcTemplate;
+
+    // application.propertiesに記載のプロパティを使用する為の変数定義
+    // @Value("${}")とすることで共通的に使用する値を参照できる
+    @Value("${coach.name}")
+    private String coachName;
+
+    @Value("${team.name}")
+    private String teamName;
 
     @ResponseBody
     @GetMapping("/")
@@ -83,4 +93,12 @@ public class ApiController {
         // 第二引数以降: sql変数内のid=? の ?の数分だけ指定したい値 
 		jdbcTemplate.update(sql, id);
 	}
+
+    // 学習用のルーティング http://localhost:8080/sample
+    @GetMapping("/sample")
+    public String Sample() {
+        // クラス変数として定義しているプロパティの値を使用する
+        // coach.name と team.name
+        return "Coach: " + coachName + "Team name: " + teamName;
+    }
 }
