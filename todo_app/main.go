@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"sandbox/project/todo_app/config"
+	"sandbox/project/todo_app/app/controllers"
+	"sandbox/project/todo_app/app/models"
 )
 
 func main() {
-	fmt.Println(config.Config.Port)
-	fmt.Println(config.Config.SQLDriver)
-	fmt.Println(config.Config.DbName)
-	fmt.Println(config.Config.LogFile)
+	// ①sqlite3 webapp.sql
+	// ②.table
+	fmt.Println(models.Db)
 
-	log.Println("test")
+	// メインサーバーの起動
+	controllers.StartMainServer()
+
 }
