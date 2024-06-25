@@ -1,0 +1,13 @@
+## 起動方法
+```
+# 1. サーバーを起動する(以下どちらも同じ意味)
+go run .
+go run main.go
+
+# 2. 別サーバーでAPIへリクエスト実行
+curl http://localhost:8080/albums
+
+
+# サーバー終了
+ctrl + C
+```
