@@ -1,13 +1,68 @@
+# API CRUD操作方法 各種
+
 ## 起動方法
+
 ```
-# 1. サーバーを起動する(以下どちらも同じ意味)
+# サーバーを起動する(以下どちらも同じ意味)
 go run .
 go run main.go
+```
 
-# 2. 別サーバーでAPIへリクエスト実行
+  - 上記でエラーが発生した場合
+  ```
+  # エラー内容
+  [GIN-debug] [ERROR] listen tcp 127.0.0.1:8080: bind: address already in use
+
+  # PORT 8080が使われているPIDを確認する
+  lsof -i -P | grep 8080
+  ↓
+  # 実行結果(以下の場合のPIDは`373`)
+  web-servi   373   th    3u  IPv4 347263      0t0  TCP localhost:8080 (LISTEN)
+  ↓
+  # PIDでキルする
+  kill -KILL 373
+  ```
+
+## 実行方法
+
+### 別サーバーでAPIへリクエスト実行(GET)
+```
 curl http://localhost:8080/albums
+```
 
+### 別サーバーでAPIへリクエスト実行(POST)
+```
+curl http://localhost:8080/albums \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+```
 
-# サーバー終了
+### 別サーバーでAPIへリクエスト実行(GET-DETAIL)
+```
+curl http://localhost:8080/albums/get/2
+```
+
+### 別サーバーでAPIへリクエスト実行(EDIT)
+```
+curl http://localhost:8080/albums/edit \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"id": "2","title": "after","artist": "test","price": 200.00}'
+```
+
+### 別サーバーでAPIへリクエスト実行(DELETE)
+```
+curl http://localhost:8080/albums/delete \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"id": "2"}'
+```
+
+## サーバー終了方法
+```
 ctrl + C
 ```
