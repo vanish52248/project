@@ -49,8 +49,8 @@ curl http://localhost:8080/albums/get/2
 curl http://localhost:8080/albums/edit \
     --include \
     --header "Content-Type: application/json" \
-    --request "POST" \
-    --data '{"id": "2","title": "after","artist": "test","price": 200.00}'
+    --request "PUT" \
+    --data '{"id": "2","title": "edit_after_title","artist": "tester","price": 200.00}'
 ```
 
 ### 別サーバーでAPIへリクエスト実行(DELETE)

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +28,7 @@ func main() {
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/get/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
-	router.POST("/albums/edit", editAlbumsByID)
+	router.PUT("/albums/edit", editAlbumsByID)
 	router.POST("/albums/delete", deleteAlbumsByID)
 	router.Run("localhost:8080")
 }
@@ -52,7 +53,7 @@ func postAlbums(c *gin.Context) {
 }
 
 // `getAlbumByID`は`id`にマッチするIDを持つアルバムの場所を取得します。
-// クライアントからパラメタが送られたら、レスポンスとしてアルバムを返します。
+// クライアントからパラメータが送られたら、レスポンスとしてアルバムを返します。
 func getAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
@@ -67,33 +68,30 @@ func getAlbumByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
-// `editAlbumByID`は`id`にマッチするIDを持つアルバムを削除します。
-// クライアントからパラメタが送られたら、レスポンスとしてアルバムを返します。
+// `editAlbumByID`は`id`にマッチするIDを持つアルバムをリクエストボディのJSONにて更新する
 func editAlbumsByID(c *gin.Context) {
-	id := c.Param("id")
+	var newAlbum album
 
-	for i, a := range albums {
-		if a.ID == id {
-			albums = append(albums[:i], albums[i+1:]...) // 削除部分
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
+	// 受け取ったJSONを'newAlbum'にバインドするために`BindJSON`を呼び出す
+	if err := c.BindJSON(&newAlbum); err != nil {
+		return
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Item not found"})
+
+	// string型で受け取っている為要素指定の為の数値型に変換
+	id, ok := strconv.Atoi(newAlbum.ID)
+	if ok != nil {
+		log.Fatal("convert Atoi failed")
+		return
+	}
+
+	// 元配列albumsの[ID]の要素を指定してパラメータとして受け取ったJSONに全置換する
+	albums[id-1] = newAlbum
+
+	// 置換実行
+	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
 // `deleteAlbumByID`は`id`にマッチするIDを持つアルバムを削除します。
-// クライアントからパラメタが送られたら、レスポンスとしてアルバムを返します。
 func deleteAlbumsByID(c *gin.Context) {
-	log.Print("=============aaaaaaaaaaaaa==============")
-	id := c.Param("id")
 
-	for i, a := range albums {
-		if a.ID == id {
-			albums = append(albums[:i], albums[i+1:]...) // 削除部分
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
-	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Item not found"})
 }
