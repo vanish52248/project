@@ -58,8 +58,8 @@ curl http://localhost:8080/albums/edit \
 curl http://localhost:8080/albums/delete \
     --include \
     --header "Content-Type: application/json" \
-    --request "POST" \
-    --data '{"id": "2"}'
+    --request "DELETE" \
+    --data '{"id": "1"}'
 ```
 
 ## サーバー終了方法

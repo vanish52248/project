@@ -29,7 +29,7 @@ func main() {
 	router.GET("/albums/get/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
 	router.PUT("/albums/edit", editAlbumsByID)
-	router.POST("/albums/delete", deleteAlbumsByID)
+	router.DELETE("/albums/delete", deleteAlbumsByID)
 	router.Run("localhost:8080")
 }
 
@@ -88,10 +88,28 @@ func editAlbumsByID(c *gin.Context) {
 	albums[id-1] = newAlbum
 
 	// 置換実行
-	c.IndentedJSON(http.StatusCreated, newAlbum)
+	c.IndentedJSON(http.StatusOK, newAlbum)
 }
 
 // `deleteAlbumByID`は`id`にマッチするIDを持つアルバムを削除します。
 func deleteAlbumsByID(c *gin.Context) {
+	var newAlbum album
 
+	// 受け取ったJSONを'newAlbum'にバインドするために`BindJSON`を呼び出す
+	if err := c.BindJSON(&newAlbum); err != nil {
+		return
+	}
+
+	// IDの値とマッチするパラメタを持つアルバムを探すためにリストのアルバムをループ
+	for i, a := range albums {
+		if a.ID == newAlbum.ID {
+			// アルバムをスライスから削除
+			albums = append(albums[:i], albums[i+1:]...)
+			// 削除されたことを示すメッセージを返す
+			c.IndentedJSON(http.StatusOK, gin.H{"message": "album deleted"})
+			return
+		}
+	}
+
+	c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "in albums item not found"})
 }
