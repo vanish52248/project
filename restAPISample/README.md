@@ -27,9 +27,13 @@ postgres   postgres:14   "docker-entrypoint.s…"   db        3 minutes ago   Up
 $ go run .
 
 # 2.API実行についてはVSCode内のThunderClientを使用してリクエストを行う
+・GET
+・POST
+・PUT
+・DELETE
 ```
 
-## ④DBの中身確認方法
+## ④Dockerコンテナ内のDBの中身確認方法
 ```
 # 1.コンテナIDの確認
 $ docker compose ps
