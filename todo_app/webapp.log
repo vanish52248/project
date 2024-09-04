@@ -1,4 +1,0 @@
-2024/02/14 17:11:39 users.go:115: no such table: sessions
-2024/02/14 17:13:28 main.go:22: sql: expected 5 destination arguments in Scan, not 4
-2024/02/14 17:14:04 main.go:22: sql: expected 5 destination arguments in Scan, not 4
-2024/02/14 17:15:52 main.go:22: sql: expected 5 destination arguments in Scan, not 4
