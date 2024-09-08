@@ -1,6 +1,34 @@
 # プロジェクト概要
 
-# ①Dockerコンテナ起動方法
+## 前提
+- 命名規則については[Golangでの命名規則におけるベストプラクティス](https://zenn.dev/kenghaya/articles/1b88417b1fa44d)を参照
+- `go get`コマンドはgithubから新規に外部パッケージを利用する場合にのみ使用する(ginやgodotenvなど)
+- GO PATHは使わずGo Modulesを採用
+- FE=>JS/React, BE=>Go/ginにて製作
+
+
+## 各階層の説明
+- cmd
+    - hoge
+- configs
+    - hoge
+- pkg
+    -hoge
+- web
+    -hoge
+
+## 各フロー
+
+### 自作のパッケージを読み込む場合
+[動かして覚えるGoのモジュールの使い方
+](https://qiita.com/Rqixy/items/b906fcb54cf162427775)を参照して読みこんでいる
+
+### モジュールのキャッシュをクリア(go mod tidyを再実行する場合)
+```
+go clean -modcache
+```
+
+### Dockerコンテナ起動方法
 ```
 # 1.ルートディレクトリでDockerを起動
 $ sudo service docker start
@@ -10,7 +38,8 @@ $ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
-## ②DB起動方法
+
+### DB起動方法
 ```
 # 1.DBを起動する(docker-compose.ymlが存在する階層で行う)
 $ docker compose up -d
@@ -21,9 +50,11 @@ NAME       IMAGE         COMMAND                  SERVICE   CREATED         STAT
 postgres   postgres:14   "docker-entrypoint.s…"   db        3 minutes ago   Up 3 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp
 ```
 
-## ③API実行方法
+
+### API実行方法
 ```
 # 1.Goのサーバーを起動させる
+$ cd /home/th/project/todoApp/cmd
 $ go run .
 
 # 2.API実行についてはVSCode内のThunderClientを使用してリクエストを行う
@@ -33,7 +64,7 @@ $ go run .
 ・DELETE
 ```
 
-## ④Dockerコンテナ内のDBの中身確認方法
+### Dockerコンテナ内のDBの中身確認方法
 ```
 # 1.コンテナIDの確認
 $ docker compose ps
@@ -55,7 +86,8 @@ postgres=# \dt;
 postgres=# \d {テーブル名};
 ```
 
-## ⑤Dockerコンテナ停止方法
+
+### Dockerコンテナ停止方法
 ```
 # 1.コンテナIDの確認
 $ docker compose ps
@@ -65,3 +97,8 @@ d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seco
 # 2.コンテナの停止
 $ docker stop {コンテナID}
 ```
+
+## 備考
+
+### 読み方
+- go mod tidy = ごー もっど たいでぃ
