@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"local.package/models"
@@ -13,16 +13,19 @@ import (
 func PostTask(c *gin.Context) {
 	var tasks []models.Task
 
+	// DBに接続
 	db := DbConnection()
+
+	// リクエストされたパラメータを構造体にバインドする
 	if bindErr := c.BindJSON(&tasks); bindErr != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to bind json"})
 		return
 	}
-	fmt.Println("==> Binded result tasks : ", tasks)
 
-	if dbCreateErr := db.Create(&tasks); dbCreateErr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to db create"})
-		return
+	// DBに登録する
+	result := db.Create(&tasks)
+	if result.Error != nil {
+		log.Fatal(result.Error)
 	}
 
 	c.JSON(http.StatusCreated, tasks)
