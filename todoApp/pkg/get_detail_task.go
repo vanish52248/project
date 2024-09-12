@@ -8,7 +8,7 @@ package pkg
 // 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 // }
 
-func DetailTask() {
+func GetDetailTask() {
 	// // ルートURL ("/") に対するGETリクエストをハンドル
 	// r.GET("/", func(c *gin.Context) {
 	// 	// JSONレスポンスを返す

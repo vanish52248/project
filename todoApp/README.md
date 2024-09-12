@@ -13,9 +13,9 @@
 - configs
     - hoge
 - pkg
-    -hoge
+    - hoge
 - web
-    -hoge
+    - hoge
 
 ## 各フロー
 
@@ -30,7 +30,8 @@ go clean -modcache
 
 ### Dockerコンテナ起動方法
 ```
-# 1.ルートディレクトリでDockerを起動
+# 1.docker-compose.yamlが存在する階層でDockerを起動
+$ cd /home/th/project/todoApp/configs
 $ sudo service docker start
 
 # 2.Dockerが起動されていることを確認
@@ -75,7 +76,7 @@ d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seco
 $ docker exec -it {コンテナID} sh
 
 # 3.postgres内へ入る
-$ psql -U postgres
+# psql -U postgres
 postgres=# 
 
 # 4.各種SELECTや以下コマンド叩いて確認する
@@ -84,8 +85,18 @@ postgres=# \dt;
 
 # テーブル構造の表示
 postgres=# \d {テーブル名};
-```
 
+# テーブル削除
+postgres=# DROP TABLE {テーブル名};
+
+# 5.postgreから抜ける
+\q
+
+# 6.コンテナから抜ける
+exit
+or
+ctrl + D
+```
 
 ### Dockerコンテナ停止方法
 ```
@@ -96,6 +107,19 @@ d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seco
 
 # 2.コンテナの停止
 $ docker stop {コンテナID}
+```
+
+### Dockerコンテナ削除
+```
+$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND                  CREATED       STATUS                   PORTS     NAMES
+d666c7bc3784   postgres:14   "docker-entrypoint.s…"   3 weeks ago   Exited (0) 3 weeks ago             postgres
+
+$ docker rm d666c7bc3784
+d666c7bc3784
+
+$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 ## 備考

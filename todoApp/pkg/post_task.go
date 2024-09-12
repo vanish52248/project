@@ -1,23 +1,30 @@
 package pkg
 
-// type Task struct {
-// 	ID          uint      `gorm:"primary_key"`
-// 	Title       string    `gorm:"size:255"`
-// 	IsCompleted bool      `gorm:"default:false"`
-// 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// }
+import (
+	"fmt"
+	"net/http"
 
-func PostTask() {
-	// // 新しいタスクを作成するエンドポイント
-	// r.POST("/tasks", func(c *gin.Context) {
-	// 	var task Task
-	// 	if err := c.ShouldBindJSON(&task); err != nil {
-	// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 		return
-	// 	}
-	// 	db.Create(&task)
-	// 	c.JSON(http.StatusOK, task)
-	// })
+	"local.package/models"
+
+	"github.com/gin-gonic/gin"
+)
+
+// タスクテーブルにタスクを1件登録するエンドポイント
+func PostTask(c *gin.Context) {
+	var tasks []models.Task
+
+	db := DbConnection()
+	if bindErr := c.BindJSON(&tasks); bindErr != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to bind json"})
+		return
+	}
+	fmt.Println("==> Binded result tasks : ", tasks)
+
+	if dbCreateErr := db.Create(&tasks); dbCreateErr != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to db create"})
+		return
+	}
+
+	c.JSON(http.StatusCreated, tasks)
 
 }
