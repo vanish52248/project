@@ -19,11 +19,14 @@ func main() {
 	router := gin.Default()
 
 	// 各ルーティングにて処理を分岐
-	router.GET("/get", pkg.GetAllTask)
-	// router.GET("/get/:id", GetDetail)
-	router.POST("/create", pkg.PostTask)
-	// router.DELETE("/delete/:id", Delete)
-	// router.PUT("/update/:id", Update)
+	// ハンドラー(第二引数)側の関数の引数に【c *gin.Context】を設定することでルーティング可能
+	// ########################################################################################
+	router.GET("/get", pkg.GetAllTask)           // 全取得
+	router.GET("/get/:id", pkg.GetDetailTask)    // 1件取得
+	router.POST("/create", pkg.PostTask)         // 登録
+	router.DELETE("/delete/:id", pkg.DeleteTask) // 削除
+	// router.PUT("/update/:id", pkg.)
+	// ########################################################################################
 
 	// 8080ポートでアプリケーションサーバーを起動
 	router.Run(":8080")
