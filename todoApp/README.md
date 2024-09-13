@@ -1,4 +1,4 @@
-# プロジェクト概要
+# BE用
 
 ## 前提
 - 命名規則については[Golangでの命名規則におけるベストプラクティス](https://zenn.dev/kenghaya/articles/1b88417b1fa44d)を参照
@@ -17,20 +17,11 @@
 - web
     - hoge
 
-## 各フロー
+## 各フロー（①～⑥の順で実施することで動作確認が可能）
 
-### 自作のパッケージを読み込む場合
-[動かして覚えるGoのモジュールの使い方
-](https://qiita.com/Rqixy/items/b906fcb54cf162427775)を参照して読みこんでいる
-
-### モジュールのキャッシュをクリア(go mod tidyを再実行する場合)
+### ①Dockerコンテナ起動方法
 ```
-go clean -modcache
-```
-
-### Dockerコンテナ起動方法
-```
-# 1.docker-compose.yamlが存在する階層でDockerを起動
+# 1.compose.yamlが存在する階層でDockerを起動
 $ cd /home/th/project/todoApp/configs
 $ sudo service docker start
 
@@ -40,9 +31,10 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 
-### DB起動方法
+### ②DB起動方法
 ```
-# 1.DBを起動する(docker-compose.ymlが存在する階層で行う)
+# 1.DBを起動する(compose.ymlが存在する階層で行う)
+$ cd /home/th/project/todoApp/configs
 $ docker compose up -d
 
 # 2.DBが起動されていることを確認
@@ -52,22 +44,54 @@ postgres   postgres:14   "docker-entrypoint.s…"   db        3 minutes ago   Up
 ```
 
 
-### API実行方法
+### ③Goサーバー起動方法
 ```
-# 1.Goのサーバーを起動させる
 $ cd /home/th/project/todoApp/cmd
 $ go run .
-
-# 2.API実行についてはVSCode内のThunderClientを使用してリクエストを行う
-・GET
-・POST
-・PUT
-・DELETE
 ```
 
-### Dockerコンテナ内のDBの中身確認方法
+### ④各API実行方法
+#### 前提：`HeaderにはContent-Type= application/json`を含めること
+#### 環境：API実行についてはVSCode内のThunderClientを使用してリクエストを行うこと
+- GET-all(全件取得)
+    - http://localhost:8080/get
+    - パラメータなし
+
+- GET-detail(1件取得)
+    - http://localhost:8080/get/{DBに存在するID}
+    - パラメータなし
+
+- POST
+    - http://localhost:8080/create
+    - 以下パラメータをBody-JSONに設定
+    ```
+    {
+        "title": "{追加したいタイトル}",
+        "content": "{追加したい本文の内容}",
+        "author": "{追加したい作成者の名前}"
+    }
+    ```
+
+- PUT
+    - http://localhost:8080/update/{DBに存在するID}
+    - 以下パラメータをBody-JSONに設定
+    ```
+    {
+        "title": "{更新したいタイトル}",
+        "content": "{更新したい本文の内容}",
+        "author": "{更新したい作成者の名前}"
+    }
+    ```
+
+- DELETE
+    - http://localhost:8080/delete/{DBに存在するID}
+    - パラメータなし
+    - `gorm`の仕様上 論理削除となっている為、物理削除を行う場合は以下Dockerコンテナ内のpostgreSQLにアクセスしDELETE構文を叩く必要がある
+
+### ⑤Dockerコンテナ内のDBの中身確認方法
 ```
 # 1.コンテナIDの確認
+$ cd /home/th/project/todoApp/configs
 $ docker compose ps
 CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS         PORTS                                       NAMES
 d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   postgres
@@ -86,6 +110,9 @@ postgres=# \dt;
 # テーブル構造の表示
 postgres=# \d {テーブル名};
 
+# レコードの削除
+postgres=# DELETE FROM {テーブル名} WHERE ID = {id};
+
 # テーブル削除
 postgres=# DROP TABLE {テーブル名};
 
@@ -98,19 +125,22 @@ or
 ctrl + D
 ```
 
-### Dockerコンテナ停止方法
+### ⑥Dockerコンテナ停止方法
 ```
 # 1.コンテナIDの確認
+$ cd /home/th/project/todoApp/configs
 $ docker compose ps
 CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS         PORTS                                       NAMES
 d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   postgres
 
 # 2.コンテナの停止
+$ cd /home/th/project/todoApp/configs
 $ docker stop {コンテナID}
 ```
 
 ### Dockerコンテナ削除
 ```
+$ cd /home/th/project/todoApp/configs
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                  CREATED       STATUS                   PORTS     NAMES
 d666c7bc3784   postgres:14   "docker-entrypoint.s…"   3 weeks ago   Exited (0) 3 weeks ago             postgres
@@ -121,6 +151,11 @@ d666c7bc3784
 $ docker ps -a
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
+
+### 自作のパッケージを読み込む場合
+[動かして覚えるGoのモジュールの使い方
+](https://qiita.com/Rqixy/items/b906fcb54cf162427775)を参照して読みこんでいる
+
 
 ## 備考
 

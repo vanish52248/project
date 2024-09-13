@@ -16,12 +16,13 @@ func GetAllTask(c *gin.Context) {
 	// DBに接続
 	db := DbConnection()
 
-	// DBから検索
+	// DB内を検索して全件取得
 	result := db.Find(&tasks)
 	if result.Error != nil {
 		log.Fatal(result.Error)
 		return
 	}
 
+	// 取得した内容をJSON形式で表示する（全件）
 	c.JSON(http.StatusOK, tasks)
 }

@@ -1,26 +1,37 @@
 package pkg
 
-// type Task struct {
-// 	ID          uint      `gorm:"primary_key"`
-// 	Title       string    `gorm:"size:255"`
-// 	IsCompleted bool      `gorm:"default:false"`
-// 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// }
+import (
+	"log"
+	"net/http"
 
-func DeleteTask() {
-	// // タスクを削除するエンドポイント
-	// r.DELETE("/tasks/:id", func(c *gin.Context) {
-	// 	var task Task
-	// 	id := c.Param("id")
+	"github.com/gin-gonic/gin"
+	"local.package/models"
+)
 
-	// 	if err := db.First(&task, id).Error; err != nil {
-	// 		c.JSON(http.StatusNotFound, gin.H{"error": "Task not found"})
-	// 		return
-	// 	}
+// タスクを削除するエンドポイント
+func DeleteTask(c *gin.Context) {
+	var task models.Task
 
-	// 	db.Delete(&task)
-	// 	c.JSON(http.StatusOK, gin.H{"message": "Task deleted"})
-	// })
+	// DBに接続
+	db := DbConnection()
 
+	// DBからQueryStringとしてURLから受け取ったIDをc.Param("id")で受け取って検索する => WHERE句
+	targetCount := db.Where("id = ?", c.Param("id")).Limit(1).Find(&task).RowsAffected
+
+	// 検索結果が0件の場合は400エラーを返却する
+	if targetCount == 0 {
+		c.JSON(http.StatusBadRequest, "No record for delete")
+		return
+	}
+
+	// 取得できた場合はDBから該当IDのレコードを削除する ※プライマリーキーを指定しないと、一括削除になる
+	// "deleted_at"カラムを削除時の時間で自動更新してくれる(.Delete)
+	deleteResult := db.Where("id = ?", c.Param("id")).Delete(&task)
+	if deleteResult.Error != nil {
+		log.Fatal(deleteResult.Error)
+		return
+	}
+
+	// 削除の為 表示内容なしとする(204)
+	c.JSON(http.StatusNoContent, task)
 }

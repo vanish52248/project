@@ -1,31 +1,43 @@
 package pkg
 
-// type Task struct {
-// 	ID          uint      `gorm:"primary_key"`
-// 	Title       string    `gorm:"size:255"`
-// 	IsCompleted bool      `gorm:"default:false"`
-// 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-// }
+import (
+	"log"
+	"net/http"
 
-func PutTask() {
-	// // タスクを更新するエンドポイント
-	// r.PUT("/tasks/:id", func(c *gin.Context) {
-	// 	var task Task
-	// 	id := c.Param("id")
+	"github.com/gin-gonic/gin"
+	"local.package/models"
+)
 
-	// 	if err := db.First(&task, id).Error; err != nil {
-	// 		c.JSON(http.StatusNotFound, gin.H{"error": "Task not found"})
-	// 		return
-	// 	}
+func PutTask(c *gin.Context) {
+	var task models.Task
 
-	// 	if err := c.ShouldBindJSON(&task); err != nil {
-	// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 		return
-	// 	}
+	// DBに接続
+	db := DbConnection()
 
-	// 	db.Save(&task)
-	// 	c.JSON(http.StatusOK, task)
-	// })
+	// URL内のQueryStringのIDをc.Param("id")で受け取って検索した件数（RowsAffected）を取得
+	updateTarget := db.Where("id = ?", c.Param("id")).Limit(1).Find(&task).RowsAffected
 
+	// 検索結果が0件（RowsAffected）の場合は400エラーを返却する
+	if updateTarget == 0 {
+		c.JSON(http.StatusBadRequest, "No record for update")
+		return
+	}
+
+	// リクエストとして受け取ったBodyのJSON Contentパラメータを構造体にバインドする
+	if bindErr := c.BindJSON(&task); bindErr != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to bind json"})
+		return
+	}
+
+	// リクエストとして受け取ったBodyのJSON Contentパラメータの内容で更新する
+	// "updated_at"カラムを登録時の時間で自動更新してくれる(.Save)
+	// ※.Saveは指定したIDが現在のDBに存在しない場合は新規作成してしまう
+	result := db.Save(&task)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		return
+	}
+
+	// 更新したレコードをJSON形式で表示する
+	c.JSON(http.StatusOK, task)
 }
