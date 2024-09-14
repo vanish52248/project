@@ -9,9 +9,11 @@
 ## 各フロー
 
 
-### サーバー起動方法
+### npm サーバー起動方法
 ```
 # 1.Reactのサーバーを起動させる
+$ cd /home/th/project/todoApp/web
+$ npm start
 ```
 
 ## 備考

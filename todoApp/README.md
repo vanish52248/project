@@ -9,13 +9,13 @@
 
 ## 各階層の説明
 - cmd
-    - hoge
+    - 実際にBEを動かすためのコマンドを叩く階層で`main.go`を格納している
 - configs
-    - hoge
+    - `docker-compose.yaml`, `.env`といったプロジェクトの設定ファイル群を格納している
 - pkg
-    - hoge
+    - 他パッケージから使用される実装を格納している
 - web
-    - hoge
+    - FE実装群を格納している(`create-react-app`にて作成)
 
 ## 各フロー（①～⑥の順で実施することで動作確認が可能）
 
