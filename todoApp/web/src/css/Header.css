@@ -1,0 +1,19 @@
+.header_wrapper {
+    display: flex;
+    padding: 1%;
+    margin: 1%;
+    background-color: #fff;
+}
+/* ユーザー名を右寄せ */
+.header_wrapper>div:last-of-type{
+    margin-left: auto;
+}
+
+.user_container {
+    line-height: 0px;
+}
+
+.user_name {
+    color: #ff0000;
+    font-weight: bold;
+}

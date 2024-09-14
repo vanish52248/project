@@ -1,0 +1,6 @@
+.frame_paper {
+    padding: 1%;
+    margin: 1%;
+    height: calc(85vh);
+    overflow-y:scroll;
+}
