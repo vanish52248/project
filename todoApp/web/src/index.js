@@ -8,7 +8,8 @@ import App from './App';
 // つまり npm startした後にindex.html > ../src/index.jsの順で内容を表示している
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // React 18で<React.StrictMode></React.StrictMode>タグを使うと反応しないライブラリがある為 フラグメントに変更している
+  <>
     <App />
-  </React.StrictMode>
+  </>
 );

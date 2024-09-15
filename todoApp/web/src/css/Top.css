@@ -2,5 +2,38 @@
     padding: 1%;
     margin: 1%;
     height: calc(85vh);
-    overflow-y:scroll;
+    overflow-y: scroll;
+    /* Paperの枠組み確認するときのみコメントアウト解除 */
+    /* border: 1px solid black; */
+}
+
+.task_item {
+    margin-bottom: 1%;
+    border: 0.5px solid #d3d3d3;
+    border-radius: 10px;
+    max-width: 90%;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+    display: inline-block;
+    padding: 0.6em 2em;
+    margin: 0 0 1em;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.task_item:hover {
+    cursor: pointer;
+    background-color: #ffffe0;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+    transform: translateY(-0.1875em);
+}
+
+.task_delete_icon {
+    padding: 12px;
+    border: 1px solid #808080;
+    border-radius: 50%;
+}
+
+.task_delete_icon:hover {
+    background-color: #808080;
+    color: #fff;
 }

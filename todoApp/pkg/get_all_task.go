@@ -13,6 +13,9 @@ import (
 func GetAllTask(c *gin.Context) {
 	var tasks []models.Task
 
+	c.Header("Content-Type", "application/json")
+	c.Header("Access-Control-Allow-Origin", "localhost:3000")
+
 	// DBに接続
 	db := DbConnection()
 
