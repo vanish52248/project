@@ -18,11 +18,12 @@ import '../css/Top.css';
 
 const Top = () => {
 
-    // タスクの一覧
+    // タスクの一覧を管理する変数
     const [taskList, setTaskList] = useState([])
 
     // メッセージダイアログ側で表示する為に渡す変数
     const [open, setOpen] = React.useState(false);
+    const [id, setId] = React.useState("");
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const [author, setAuthor] = React.useState("");
@@ -34,7 +35,7 @@ const Top = () => {
         const taskGetListFromBE = []
         axios.get(process.env.REACT_APP_LOCAL_API_URL + '/get', {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             }
         })
@@ -47,10 +48,10 @@ const Top = () => {
             })
     }
 
-    // 初回起動時に読み込ませたい処理
+    // 初回起動時&タスク削除モーダルが開閉したときに読み込ませたい処理
     React.useEffect(() => {
         getAllTasks();
-    }, [])
+    }, [open])
 
 
     // 追加(+)ボタン押下時の処理
@@ -72,14 +73,13 @@ const Top = () => {
         })
             .then(response => {
                 // BEの一覧取得APIを再読み込みして最新の一覧を取得
-                console.log(response);
                 getAllTasks()
             })
     }
 
-
     // 削除(ごみ箱)ボタン押下時の処理
-    const handleTaskDelete = (title, content, author) => {
+    const handleTaskDelete = (id, title, content, author) => {
+        setId(id)
         setTitle(title)
         setContent(content)
         setAuthor(author)
@@ -89,16 +89,16 @@ const Top = () => {
     return (
         <>
             <Header />
+            {/* ・TODO: 一覧と履歴のタブを作る */}
+            {/* タスク追加ボタン */}
+            <div className="task_item_add_container">
+                <AddCardRoundedIcon
+                    fontSize="large"
+                    className="task_item_add_button"
+                    onClick={() => handleTaskCreate()}
+                />
+            </div>
             <Paper className='frame_paper'>
-                {/* ・TODO: 一覧と履歴のタブを作る */}
-                {/* タスク追加ボタン */}
-                <div className="task_item_add_container">
-                    <AddCardRoundedIcon
-                        fontSize="large"
-                        className="task_item_add_button"
-                        onClick={() => handleTaskCreate()}
-                    />
-                </div>
                 {/* BEから取得したタスクの一覧をリアルタイム表示する */}
                 <List>
                     {taskList.map((task, index) => (
@@ -110,8 +110,12 @@ const Top = () => {
                                 <IconButton
                                     edge="end"
                                     aria-label="delete"
-                                    onClick={() => handleTaskDelete(task.Title, task.Content, task.Author)}
-                                >
+                                    onClick={() => handleTaskDelete(
+                                        task.ID,
+                                        task.Title,
+                                        task.Content,
+                                        task.Author
+                                    )}>
                                     <DeleteIcon className="task_delete_icon" />
                                 </IconButton>
                             }
@@ -135,6 +139,7 @@ const Top = () => {
             {open ?
                 <MessageDialog
                     setOpen={setOpen}
+                    setId={id}
                     setTitle={title}
                     setContent={content}
                     setAuthor={author}

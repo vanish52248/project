@@ -7,6 +7,28 @@
     /* border: 1px solid red; */
 }
 
+.task_item_add_button {
+    width: 20px;
+    color: #808080;
+    cursor: pointer;
+    border: 1px solid #808080;
+    border-radius: 25%;
+    padding: 12px;
+    margin-right: 5%;
+    margin-bottom: 0.5%;
+}
+
+.task_item_add_container {
+    display: flex;
+    justify-content: right;
+}
+
+.task_item_add_button:hover {
+    background-color: #808080;
+    color: #fff;
+}
+
+
 .task_item {
     border: 0.5px solid #d3d3d3;
     border-radius: 10px;

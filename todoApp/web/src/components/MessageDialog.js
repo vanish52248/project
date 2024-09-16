@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -15,7 +17,18 @@ export default function AlertDialog(props) {
 
   // 削除ボタンを押下した際の処理
   const handleDialogDelete = () => {
-    // TODO: axios.DELETE処理追加
+    // BEの削除APIよりタスクを削除する処理
+    axios.delete(process.env.REACT_APP_LOCAL_API_URL + `/delete/${props.setId}`,  {
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+  })
+      .then(response => {
+          props.setOpen(false);
+      })
+
+
   };
 
   return (
@@ -27,11 +40,11 @@ export default function AlertDialog(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {props.setTitle} を削除しますか？
+          {props.setTitle === "" ? "無題" : props.setTitle} を削除しますか？
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            内容: {props.setContent}<br/>
+            内容: {props.setContent}<br />
             作成者: {props.setAuthor}
           </DialogContentText>
         </DialogContent>
