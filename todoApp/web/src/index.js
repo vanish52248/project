@@ -9,7 +9,7 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // React 18で<React.StrictMode></React.StrictMode>タグを使うと反応しないライブラリがある為 フラグメントに変更している
-  <>
+  <React.StrictMode>
     <App />
-  </>
+  </React.StrictMode>
 );

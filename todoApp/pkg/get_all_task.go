@@ -13,14 +13,11 @@ import (
 func GetAllTask(c *gin.Context) {
 	var tasks []models.Task
 
-	c.Header("Content-Type", "application/json")
-	c.Header("Access-Control-Allow-Origin", "localhost:3000")
-
 	// DBに接続
 	db := DbConnection()
 
-	// DB内を検索して全件取得
-	result := db.Find(&tasks)
+	// DB内を検索して全件取得(作成日時の昇順で表示)
+	result := db.Order("created_at ASC").Find(&tasks)
 	if result.Error != nil {
 		log.Fatal(result.Error)
 		return
