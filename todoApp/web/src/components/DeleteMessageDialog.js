@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog(props) {
+const DeleteMessageDialog = (props) => {
 
   // キャンセルボタンを押下した際の処理
   const handleDialogClose = () => {
@@ -18,17 +18,27 @@ export default function AlertDialog(props) {
   // 削除ボタンを押下した際の処理
   const handleDialogDelete = () => {
     // BEの削除APIよりタスクを削除する処理
-    axios.delete(process.env.REACT_APP_LOCAL_API_URL + `/delete/${props.setId}`,  {
+    axios.delete(process.env.REACT_APP_LOCAL_API_URL + `/delete/${props.setId}`, {
       headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
-  })
+    })
       .then(response => {
-          props.setOpen(false);
+        // 削除後にポップアップを閉じる処理=>トリガーでTOP画面側でデータを全取得する
+        props.setOpen(false);
+        
+        // スナックバーの制御
+        props.setOpenSnack(true);
+        props.setMessage("タスクの削除が完了しました。");
+        props.setSeverity("green");
       })
-
-
+      .catch(error => {
+        // スナックバーの制御
+        props.setOpenSnack(true);
+        props.setMessage(`タスクの削除に失敗しました。`);
+        props.setSeverity("red");
+      })
   };
 
   return (
@@ -50,11 +60,11 @@ export default function AlertDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} autoFocus>キャンセル</Button>
-          <Button onClick={handleDialogDelete}>
-            削除
-          </Button>
+          <Button onClick={handleDialogDelete}>削除</Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
+
+export default DeleteMessageDialog

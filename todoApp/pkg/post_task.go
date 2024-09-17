@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"log"
 	"net/http"
 
 	"local.package/models"
@@ -26,10 +25,10 @@ func PostTask(c *gin.Context) {
 	// "created_at", "updated_at"カラムの2つを登録時の時間で自動更新してくれる(.Create)
 	result := db.Create(&task)
 	if result.Error != nil {
-		log.Fatal(result.Error)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
+		return
 	}
 
 	// 登録したレコードをJSON形式で表示する
 	c.JSON(http.StatusCreated, &task)
-
 }

@@ -18,7 +18,7 @@ func GetDetailTask(c *gin.Context) {
 
 	// 検索結果が0件の場合は400エラーを返却する
 	if resultCount == 0 {
-		c.JSON(http.StatusBadRequest, "No record for get detail")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no record for get detail"})
 		return
 	}
 

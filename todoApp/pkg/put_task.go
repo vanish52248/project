@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,7 +18,7 @@ func PutTask(c *gin.Context) {
 
 	// 検索結果が0件（RowsAffected）の場合は400エラーを返却する
 	if updateTarget == 0 {
-		c.JSON(http.StatusBadRequest, "No record for update")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no record for update"})
 		return
 	}
 
@@ -34,7 +33,7 @@ func PutTask(c *gin.Context) {
 	// ※.Saveは指定したIDが現在のDBに存在しない場合は新規作成してしまう
 	result := db.Save(&task)
 	if result.Error != nil {
-		log.Fatal(result.Error)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
 		return
 	}
 

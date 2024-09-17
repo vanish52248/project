@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"log"
 	"net/http"
 
 	"local.package/models"
@@ -19,7 +18,7 @@ func GetAllTask(c *gin.Context) {
 	// DB内を検索して全件取得(作成日時の昇順で表示)
 	result := db.Order("created_at ASC").Find(&tasks)
 	if result.Error != nil {
-		log.Fatal(result.Error)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed get all task"})
 		return
 	}
 

@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +19,7 @@ func DeleteTask(c *gin.Context) {
 
 	// 検索結果が0件の場合は400エラーを返却する
 	if targetCount == 0 {
-		c.JSON(http.StatusBadRequest, "No record for delete")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no record for delete"})
 		return
 	}
 
@@ -28,7 +27,7 @@ func DeleteTask(c *gin.Context) {
 	// "deleted_at"カラムを削除時の時間で自動更新してくれる(.Delete)
 	deleteResult := db.Where("id = ?", c.Param("id")).Delete(&task)
 	if deleteResult.Error != nil {
-		log.Fatal(deleteResult.Error)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed delete"})
 		return
 	}
 
