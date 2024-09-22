@@ -12,6 +12,8 @@ func PutTask(c *gin.Context) {
 
 	// DBに接続
 	db := DbConnection()
+	// db.DB()を設定することでconnectionとして使用したDBをクローズする準備ができる
+	dbForClose, _ := db.DB()
 
 	// URL内のQueryStringのIDをc.Param("id")で受け取って検索した件数（RowsAffected）を取得
 	updateTarget := db.Where("id = ?", c.Param("id")).Limit(1).Find(&task).RowsAffected
@@ -36,6 +38,8 @@ func PutTask(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
 		return
 	}
+	// 更新完了後(この関数の処理終了後)にAPIで使用していたDBをクローズする
+	defer dbForClose.Close()
 
 	// 更新したレコードをJSON形式で表示する
 	c.JSON(http.StatusOK, task)

@@ -14,6 +14,8 @@ func PostTask(c *gin.Context) {
 
 	// DBに接続
 	db := DbConnection()
+	// db.DB()を設定することでconnectionとして使用したDBをクローズする準備ができる
+	dbForClose, _ := db.DB()
 
 	// リクエストとして受け取ったBodyのJSON Contentパラメータを構造体にバインドする
 	if bindErr := c.BindJSON(&task); bindErr != nil {
@@ -28,6 +30,8 @@ func PostTask(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
 		return
 	}
+	// 登録完了後(この関数の処理終了後)にAPIで使用していたDBをクローズする
+	defer dbForClose.Close()
 
 	// 登録したレコードをJSON形式で表示する
 	c.JSON(http.StatusCreated, &task)

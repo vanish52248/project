@@ -31,10 +31,10 @@ const Header = () => {
             fontSize="large"
             onClick={toTop} />
         </div>
-        <div >
+        {/* <div > */}
           {/* 現在のユーザー名を表示する */}
-          <p className='user_container'>User: <span className='user_name'>ユーザー名</span></p>
-        </div>
+          {/* <p className='user_container'>User: <span className='user_name'>ユーザー名</span></p> */}
+        {/* </div> */}
       </div>
     </>
   )

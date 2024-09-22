@@ -40,8 +40,5 @@ func DbConnection() *gorm.DB {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	// TODO: db.close()を都度使っていないため、連続でAPIを走らせるとgorm.Open()セッションが100を越えたらエラーになってしまう件を解消する
-	// => postgreSQL内でSELECT count(*) FROM pg_stat_activity; で確認可能
-
 	return db
 }

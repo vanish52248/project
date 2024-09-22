@@ -40,7 +40,7 @@ const Top = () => {
     const getAllTasks = () => {
 
         // BEの一覧取得APIよりタスクを取得する処理
-        const taskGetListFromBE = []
+        let taskGetListFromBE = []
         axios.get(process.env.REACT_APP_LOCAL_API_URL + '/get', {
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const Top = () => {
         const reqestDataOfJson = {
             Title: "",
             Content: "",
-            Author: "" // TODO: 作成者をユーザーに設定する
+            Author: ""
         }
 
         // BEの登録APIよりタスクを登録する処理
@@ -177,7 +177,6 @@ const Top = () => {
                         >
                             <ListItemAvatar>
                                 <Avatar>
-                                    {/* TODO: DBに登録する値毎に表示する画像を変える?など画像に一工夫する */}
                                     <FolderIcon />
                                 </Avatar>
                             </ListItemAvatar>

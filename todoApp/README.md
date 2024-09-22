@@ -1,10 +1,10 @@
 # BE用
 
 ## 前提
+- Go/ginにて実装
 - 命名規則については[Golangでの命名規則におけるベストプラクティス](https://zenn.dev/kenghaya/articles/1b88417b1fa44d)を参照
 - `go get`コマンドはgithubから新規に外部パッケージを利用する場合にのみ使用する(ginやgodotenvなど)
 - GO PATHは使わずGo Modulesを採用
-- FE=>JS/React, BE=>Go/ginにて製作
 
 
 ## 各階層の説明
@@ -17,8 +17,8 @@
 - web
     - FE実装群を格納している(`create-react-app`にて作成)
 
-## 各フロー（①～⑥の順で実施することで動作確認が可能）
 
+## 各フロー（①～⑥の順で実施することで動作確認が可能）
 ### ①Dockerコンテナ起動方法
 ```
 # 1.compose.yamlが存在する階層でDockerを起動
@@ -49,6 +49,7 @@ postgres   postgres:14   "docker-entrypoint.s…"   db        3 minutes ago   Up
 $ cd /home/th/project/todoApp/cmd
 $ go run .
 ```
+
 
 ### ④各API実行方法
 #### 前提：`HeaderにはContent-Type= application/json`を含めること
@@ -88,6 +89,7 @@ $ go run .
     - パラメータなし
     - `gorm`の仕様上 論理削除となっている為、物理削除を行う場合は以下Dockerコンテナ内のpostgreSQLにアクセスしDELETE構文を叩く必要がある
 
+
 ### ⑤Dockerコンテナ内のDBの中身確認方法
 ```
 # 1.コンテナIDの確認
@@ -122,8 +124,9 @@ postgres=# DROP TABLE {テーブル名};
 # 6.コンテナから抜ける
 exit
 or
-ctrl + D
+ctrl + d
 ```
+
 
 ### ⑥Dockerコンテナ停止方法
 ```
@@ -137,6 +140,7 @@ d666c7bc3784   postgres:14   "docker-entrypoint.s…"   32 hours ago   Up 5 seco
 $ cd /home/th/project/todoApp/configs
 $ docker stop {コンテナID}
 ```
+
 
 ### Dockerコンテナ削除
 ```
@@ -158,6 +162,5 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 
 ## 備考
-
 ### 読み方
 - go mod tidy = ごー もっど たいでぃ

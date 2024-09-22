@@ -13,6 +13,8 @@ func DeleteTask(c *gin.Context) {
 
 	// DBに接続
 	db := DbConnection()
+	// db.DB()を設定することでconnectionとして使用したDBをクローズする準備ができる
+	dbForClose, _ := db.DB()
 
 	// DBからQueryStringとしてURLから受け取ったIDをc.Param("id")で受け取って検索する => WHERE句
 	targetCount := db.Where("id = ?", c.Param("id")).Limit(1).Find(&task).RowsAffected
@@ -30,6 +32,8 @@ func DeleteTask(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "failed delete"})
 		return
 	}
+	// 削除完了後(この関数の処理終了後)にAPIで使用していたDBをクローズする
+	defer dbForClose.Close()
 
 	// 削除の為 表示内容なしとする(204)
 	c.JSON(http.StatusNoContent, task)
