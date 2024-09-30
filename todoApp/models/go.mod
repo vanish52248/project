@@ -1,3 +1,5 @@
+// module => 他パッケージからインポートされる際にimport文として記載されるディレクトリ名となる
+// 一意なモジュール名が良い ex) 大体 github.com/アカウント名/プロジェクト名/hoge
 module local.package/models
 
 go 1.21.4

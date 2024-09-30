@@ -79,7 +79,7 @@ const Top = () => {
         }
 
         // BEの登録APIよりタスクを登録する処理
-        axios.post(process.env.REACT_APP_LOCAL_API_URL + '/create', reqestDataOfJson, {
+        axios.post(process.env.REACT_APP_API_URL + '/create', reqestDataOfJson, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'

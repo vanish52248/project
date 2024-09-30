@@ -1,12 +1,19 @@
+// module => 他パッケージからインポートされる際にimport文として記載されるディレクトリ名となる
+// 一意なモジュール名が良い ex) 大体 github.com/アカウント名/プロジェクト名/hoge
 module local.package/pkg
 
 go 1.21.4
 
+// replaceの記載はimportする側（今回は"models/"をインポートして使いたい）に記載する
+// 自作のpackageをimportする際にローカルパスから参照する様に変更する為に必要
+// → go mod tidy を叩くディレクトリから見た相対パスで記載
+// replace hogehoge の部分の記載先はインポートしたいディレクトリ(今回は"models/")の"module"部分を全て記載する
 replace local.package/models => ../models
 
 require (
 	github.com/joho/godotenv v1.5.1
 	gorm.io/gorm v1.25.12
+	// replaceしたmodelsのディレクトリの相対パス（go mod tidy を行うと自動で記載される）
 	local.package/models v0.0.0-00010101000000-000000000000
 )
 

@@ -1,5 +1,20 @@
-# データベースの設定
 services:
+  # バックエンドの設定
+  go:
+    build:
+      # イメージのビルドコンテキストとして、現在のディレクトリを指定する 
+      context: .
+      # 同階層のDockerfile という名前のファイルを使用してイメージをビルドする
+      dockerfile: Dockerfile
+    # ホストとコンテナ間で公開するポートのマッピングを指定します
+    ports:
+      - '8080:8080'
+  # フロントエンドの設定
+  nginx:
+      image: nginx
+      ports:
+        - "80:80"
+  # データベースの設定
   db:
     image: postgres:14
     container_name: postgres

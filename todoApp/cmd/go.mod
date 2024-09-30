@@ -1,14 +1,15 @@
-// 誰とも被らないモジュール名が良い。
-// ex) 大体 github.com/アカウント名/プロジェクト名/hoge
+// module => 他パッケージからインポートされる際にimport文として記載されるディレクトリ名となる
+// 一意なモジュール名が良い ex) 大体 github.com/アカウント名/プロジェクト名/hoge
 module local.package/cmd
 
 // 現在使用している go version
 go 1.21.4
 
+// replaceの記載はimportする側（今回は"main.go"で"pkg/"と"models/"をインポートして使いたい）に記載する
 // 自作のpackageをimportする際にローカルパスから参照する様に変更する為に必要
-// go mod tidy したカレントディレクトリから見た相対パスとする
+// → go mod tidy を叩くディレクトリから見た相対パスで記載
+// replace hogehoge の部分の記載先はインポートしたいディレクトリ(今回は"pkg/"と"models/")の"module"部分を全て記載する
 replace local.package/pkg => ../pkg
-
 replace local.package/models => ../models
 
 // 直接的な依存先
@@ -16,6 +17,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	// replaceしたmodelsのディレクトリの相対パス（go mod tidy を行うと自動で記載される）
 	local.package/models v0.0.0-00010101000000-000000000000
 	// replaceしたpackageのディレクトリの相対パス（go mod tidy を行うと自動で記載される）
 	local.package/pkg v0.0.0-00010101000000-000000000000
