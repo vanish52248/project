@@ -41,7 +41,7 @@ const Top = () => {
 
         // BEの一覧取得APIよりタスクを取得する処理
         let taskGetListFromBE = []
-        axios.get(process.env.REACT_APP_LOCAL_API_URL + '/get', {
+        axios.get(process.env.REACT_APP_API_URL + '/get', {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
