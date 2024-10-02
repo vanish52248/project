@@ -6,6 +6,15 @@
 - `go get`コマンドはgithubから新規に外部パッケージを利用する場合にのみ使用する(ginやgodotenvなど)
 - GO PATHは使わずGo Modulesを採用
 
+## デプロイ方法
+1. test
+```
+```
+
+2. test
+
+
+
 
 ## 各階層の説明
 - cmd
