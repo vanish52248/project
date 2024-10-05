@@ -1,0 +1,62 @@
+services:
+  # データベースの設定
+  # DB名やユーザー名などの接続情報は環境変数として以下が設定されていてそれを"env_file"で別途設定不要
+  # POSTGRES_DB=DB名
+  # POSTGRES_USER=ユーザー名
+  # POSTGRES_PASSWORD=パスワード
+  # POSTGRES_HOST=ホスト名 # 以下の場合"container_name"のpostgres-db
+  # POSTGRES_PORT=ポート
+  db:
+    image: postgres:14
+    # 表示されるコンテナ名
+    container_name: postgres-db
+    # <Host Port>:<Container Port>なので、ホスト側のポート番号が5432で、コンテナ側を5432として設定
+    ports:
+      - 5432:5432
+    volumes:
+    # db-storeは最下部のvolumesで定義している名前を使用している
+    # 例えDBのコンテナを消してしまっても、データを別場所にて保管しているので、復元できる
+      - db-store:/var/lib/postgresql/data
+      # - ./script:/docker-entrypoint-initdb.d
+      - ./configs/script:/docker-entrypoint-initdb.d
+    # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
+    env_file:
+      - ./configs/.env
+    environment:
+      - TZ=Asia/Tokyo
+
+
+  # バックエンドの設定
+  go:
+    # 表示されるコンテナ名
+    container_name: back-end
+    # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
+    env_file:
+      - ./configs/.env
+    build:
+      # ”back-end”コンテナをビルドする際の設定 (docker-compose.ymlと同じフォルダのDockerfileを読み込む)
+      context: .
+      dockerfile: ./Dockerfile
+    # <Host Port>:<Container Port>なので、ホスト側のポート番号が8080で、コンテナ側を8080として設定
+    ports:
+      - '8080:8080'
+
+
+  # フロントエンドの設定
+  nginx:
+      # 表示されるコンテナ名
+      container_name: front-end
+      image: nginx
+      # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
+      ports:
+        - "3000:3000"
+      # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
+      env_file:
+        - ./web/.env
+
+
+# volumesによりボリュームが作成される
+# もし既に名前を付けているボリュームをvolumesにて指定すると、その名前の付いたボリュームからデータを参照する
+# dbセクションで使用している[db-store]ボリュームの『データを永続化()』できる
+volumes:
+  db-store:

@@ -5,18 +5,19 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 // DBと接続する関数
 func DbConnection() *gorm.DB {
+	// ローカルでの動作確認時のみ使用するようにする
 	// .envファイルの中身を環境変数として読み込む
-	err := godotenv.Load("../configs/.env")
-	if err != nil {
-		log.Fatal("Error loading .env file\n", err)
-	}
+	// err := godotenv.Load("../configs/.env")
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file by db_connection.go\n", err)
+	// }
 
 	// 環境変数から接続情報を取得
 	dbUser := os.Getenv("POSTGRES_USER")

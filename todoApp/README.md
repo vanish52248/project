@@ -2,18 +2,23 @@
 
 ## 前提
 - Go/ginにて実装
+- AWSのEC2上にデプロイすることとする
 - 命名規則については[Golangでの命名規則におけるベストプラクティス](https://zenn.dev/kenghaya/articles/1b88417b1fa44d)を参照
 - `go get`コマンドはgithubから新規に外部パッケージを利用する場合にのみ使用する(ginやgodotenvなど)
 - GO PATHは使わずGo Modulesを採用
 
 ## デプロイ方法
-1. test
+1. AWSのEC2内のコンテナに接続(VSCodeのリモートSSHにて)
 ```
+# Projectのディレクトリをクローンする
+$ git clone {project}
+
+
+# ここで各ディレクトリで`.gitignore`によって無視している`.env`ファイルを手動で配置する
+
+
+# 
 ```
-
-2. test
-
-
 
 
 ## 各階層の説明
@@ -38,7 +43,6 @@ $ sudo service docker start
 $ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
-
 
 ### ②DB起動方法
 ```
@@ -150,20 +154,41 @@ $ cd /home/th/project/todoApp/configs
 $ docker stop {コンテナID}
 ```
 
-
-### Dockerコンテナ削除
+### Docker各操作
 ```
-$ cd /home/th/project/todoApp/configs
-$ docker ps -a
-CONTAINER ID   IMAGE         COMMAND                  CREATED       STATUS                   PORTS     NAMES
-d666c7bc3784   postgres:14   "docker-entrypoint.s…"   3 weeks ago   Exited (0) 3 weeks ago             postgres
+# Dockerfileを編集してビルドしなおしつつすべのコンテナを起動したい時
+$ docker compose up --build -d
 
-$ docker rm d666c7bc3784
-d666c7bc3784
+# 全てのコンテナの起動のみ
+$ docker compose up -d
 
-$ docker ps -a
-CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+# 全ての既存コンテナの起動と停止(2回目以降の作業をするときなど)
+$ docker compose start
+$ docker compose stop
+
+# 全てのコンテナの情報を削除する時
+$ docker compose down
+
+# 現在の起動済みコンテナを確認(起動してないコンテナもすべて確認する場合は末尾に"-a"を付与)
+$ docker ps
+
+# docker composeにて発生したエラーなどをログで確認する
+$ docker compose logs
+
+# 現在、Dockerが使用しているディスク容量を確認
+$ docker system df
+
+# イメージ削除
+$ docker images
+$ docker rmi -f {image id}
+
+# 使用してないコンテナの削除
+$ docker rm `docker ps -a -q`
+
+# docker ビルド時のキャッシュ削除（イメージも消える）
+$ docker builder prune -a
 ```
+
 
 ### 自作のパッケージを読み込む場合
 [動かして覚えるGoのモジュールの使い方
