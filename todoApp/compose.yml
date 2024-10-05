@@ -17,8 +17,6 @@ services:
     # db-storeは最下部のvolumesで定義している名前を使用している
     # 例えDBのコンテナを消してしまっても、データを別場所にて保管しているので、復元できる
       - db-store:/var/lib/postgresql/data
-      # - ./script:/docker-entrypoint-initdb.d
-      - ./configs/script:/docker-entrypoint-initdb.d
     # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
     env_file:
       - ./configs/.env
@@ -26,7 +24,7 @@ services:
       - TZ=Asia/Tokyo
 
 
-  # バックエンドの設定
+  # バックエンドの設定 
   go:
     # 表示されるコンテナ名
     container_name: back-end
@@ -46,13 +44,18 @@ services:
   nginx:
       # 表示されるコンテナ名
       container_name: front-end
-      image: nginx
-      # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
-      ports:
-        - "3000:3000"
       # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
       env_file:
         - ./web/.env
+      build:
+        # ”front-end”コンテナをビルドする際の設定 (docker-compose.ymlと同じフォルダのDockerfileを読み込む)
+        context: ./
+        dockerfile: ./web/Dockerfile
+      volumes:
+        - node_modules:/web/node_modules
+      # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
+      ports:
+        - "3000:3000"
 
 
 # volumesによりボリュームが作成される
@@ -60,3 +63,4 @@ services:
 # dbセクションで使用している[db-store]ボリュームの『データを永続化()』できる
 volumes:
   db-store:
+  node_modules:

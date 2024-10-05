@@ -7,8 +7,8 @@ FROM golang:1.21-alpine
 # コンテナ内の作業ディレクトリを"/build_app"に設定し、以降のコマンドは指定ディレクトリにて実行される(存在しない場合は作成される)
 WORKDIR /build_app
 
-# コンテナ内の"/build_app"配下の構造をローカルの"todoApp/"配下の構造と揃えるようにディレクトリを作成する
-RUN mkdir -p cmd configs models pkg web
+# コンテナ内の"/build_app"配下の構造をローカルの"todoApp/"配下の構造と揃えるようにディレクトリを作成する(BE部分)
+RUN mkdir -p cmd configs models pkg
 
 # ローカルの"todoApp/"ディレクトリ配下の構造を コンテナ内の"/build_app"の同名階層配下にすべてコピーする
 # ※ .から始まるファイルはコピーされない！！（.env など）
@@ -16,7 +16,6 @@ COPY cmd/ ./cmd
 COPY configs/ ./configs
 COPY models/ ./models
 COPY pkg/ ./pkg
-COPY web/ ./web
 COPY go.mod ./
 COPY go.sum ./
 

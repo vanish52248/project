@@ -156,6 +156,9 @@ $ docker stop {コンテナID}
 
 ### Docker各操作
 ```
+# Container内部に入る
+$ docker exec -it {CONTAINER ID} sh
+
 # Dockerfileを編集してビルドしなおしつつすべのコンテナを起動したい時
 $ docker compose up --build -d
 
@@ -172,8 +175,11 @@ $ docker compose down
 # 現在の起動済みコンテナを確認(起動してないコンテナもすべて確認する場合は末尾に"-a"を付与)
 $ docker ps
 
-# docker composeにて発生したエラーなどをログで確認する
+# docker composeにて発生した全てのコンテナのエラーをまとめてログで確認する
 $ docker compose logs
+
+# docker psで立ち上がっているコンテナのログを個別で確認する
+$ docker logs {CONTAINER ID}
 
 # 現在、Dockerが使用しているディスク容量を確認
 $ docker system df
@@ -181,6 +187,9 @@ $ docker system df
 # イメージ削除
 $ docker images
 $ docker rmi -f {image id}
+
+# 未使用イメージ全削除
+# docker rmi `docker images -q`
 
 # 使用してないコンテナの削除
 $ docker rm `docker ps -a -q`
