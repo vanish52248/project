@@ -28,8 +28,8 @@ func main() {
 			"http://localhost:3000",
 			"https://localhost:3000",
 			// EC2本番環境のURL
-			"http://13.231.211.182:3000",
-			"https://13.231.211.182:3000",
+			"http://3.112.124.235:3000",
+			"https://3.112.124.235:3000",
 		},
 		// 許可したいHTTPリクエストヘッダ
 		AllowHeaders: []string{
