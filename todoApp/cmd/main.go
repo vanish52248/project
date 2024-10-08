@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"local.package/models"
 	"local.package/pkg"
 
@@ -26,20 +28,22 @@ func main() {
 		AllowOrigins: []string{
 			// local環境のURL
 			"http://localhost:3000",
-			"https://localhost:3000",
-			// EC2本番環境のURL
-			"http://3.112.124.235:3000",
-			"https://3.112.124.235:3000",
+			// EC2のパブリックIPアドレス
+			"http://3.112.124.235",
 		},
 		// 許可したいHTTPリクエストヘッダ
 		AllowHeaders: []string{
-			"Access-Control-Allow-Credentials",
-			"Access-Control-Allow-Headers",
 			"Content-Type",
-			"Content-Length",
-			"Accept-Encoding",
 			"Authorization",
 		},
+		// CORSエラーを防ぐために使用するメソッドを許可する
+		AllowMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodDelete,
+		},
+		AllowCredentials: true,
 	}))
 
 	// 各ルーティングにて”CRUD”処理を分岐

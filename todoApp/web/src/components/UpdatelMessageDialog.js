@@ -31,10 +31,9 @@ const UpdateMessageDialog = (props) => {
     }
 
     // BEの更新APIよりタスクを更新する処理
-    axios.put(process.env.REACT_APP_LOCAL_API_URL + `/update/${props.setId}`, reqestDataOfJson, {
+    axios.put(process.env.REACT_APP_API_URL + `/update/${props.setId}`, reqestDataOfJson, {
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       }
     })
       .then(response => {

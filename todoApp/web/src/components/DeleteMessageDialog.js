@@ -18,10 +18,9 @@ const DeleteMessageDialog = (props) => {
   // 削除ボタンを押下した際の処理
   const handleDialogDelete = () => {
     // BEの削除APIよりタスクを削除する処理
-    axios.delete(process.env.REACT_APP_LOCAL_API_URL + `/delete/${props.setId}`, {
+    axios.delete(process.env.REACT_APP_API_URL + `/delete/${props.setId}`, {
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       }
     })
       .then(response => {

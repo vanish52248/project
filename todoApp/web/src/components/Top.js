@@ -44,7 +44,6 @@ const Top = () => {
         axios.get(process.env.REACT_APP_API_URL + '/get', {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
             }
         })
             .then(response => {
@@ -82,7 +81,6 @@ const Top = () => {
         axios.post(process.env.REACT_APP_API_URL + '/create', reqestDataOfJson, {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
             }
         })
             .then(response => {
