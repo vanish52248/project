@@ -9,7 +9,7 @@ WORKDIR /build_app/web
 
 # Dockerのキャッシュの関係で先にpacage.jsonをコピーする
 # 根拠：https://qiita.com/yuminn-k/items/bd2d741069934b6ea68f
-COPY web/package.json ./
+COPY package.json ./
 
 # 依存関係をインストール
 RUN npm install
@@ -17,7 +17,7 @@ RUN npm install
 # packageのインストールが終わったのちに残りのコードをコピーする
 # ローカルの"todoApp/web"ディレクトリ配下の構造を コンテナ内の"/build_app/web"の階層配下にコピーする
 # ※ .から始まるファイルはコピーされない！！（.env など）
-COPY web/ ./
+COPY . .
 
 # アプリケーションを起動
 CMD [ "npm", "start" ]
