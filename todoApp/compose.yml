@@ -38,25 +38,50 @@ services:
     # <Host Port>:<Container Port>なので、ホスト側のポート番号が8080で、コンテナ側を8080として設定
     ports:
       - '8080:8080'
+    # services>dbに依存する為services>dbが起動してから自分も起動するという順序を定義する
+    # dbより先に起動してしまった場合にDB読み込み処理が走ってしまいエラーになる為
+    depends_on:
+      - db
+
+
+  # TODO パブリックIPv4アドレスをlocalhost:3000に接続するためのwebサーバー起動(リバースプロキシ)
+  nginx:
+    image: nginx:latest
+    # 表示されるコンテナ名
+    container_name: nginx
+    # portは80番と443番を開けている。
+    # それぞれHTTP(80)とHTTPS(443)で使用するポート番号に対応しており、 これがなければブラウザからアクセスすることができない。
+    # ex) http://localhost:80　とアクセスすると、コンテナ側の80ポートへフォワードされるイメージ
+    ports:
+      - "80:80"
+      - "443:443"
+    # 「ホスト側のディレクトリ:コンテナ側のディレクトリ」の形式。
+    volumes:
+      # 下記の例だと、ホスト側のdocker-compose.ymlが配置されたディレクトリから見てweb/publicというディレクトリがコンテナ側の「/usr/share/nginx/html」ディレクトリにマウント(上書き)される
+      - ./web/public:/usr/share/nginx/html
+      # 下記の例だと、ホスト側のdocker-compose.ymlが配置されたディレクトリにあるntinx.confというディレクトリがコンテナ側の「etc/nginx/nginx.conf.d」ディレクトリにマウント(上書き)される
+      - ./nginx.conf:/etc/nginx/nginx.conf.d
 
 
   # フロントエンドの設定
-  nginx:
-      # 表示されるコンテナ名
-      container_name: front-end
-      # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
-      env_file:
-        - ./web/.env
-      build:
-        # ”front-end”コンテナをビルドする際の設定 (docker-compose.ymlと同じフォルダのDockerfileを読み込む)
-        context: ./
-        dockerfile: ./web/Dockerfile
-      volumes:
-        - node_modules:/web/node_modules
-      # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
-      ports:
-        - "3000:3000"
-
+  react:
+    # 表示されるコンテナ名
+    container_name: front-end
+    # コンテナ内で読み込む環境ファイルの階層とファイル名を指定する
+    env_file:
+      - ./web/.env
+    build:
+      # ”front-end”コンテナをビルドする際の設定 (docker-compose.ymlと同じフォルダのDockerfileを読み込む)
+      context: ./
+      dockerfile: ./web/Dockerfile
+    volumes:
+      - node_modules:/web/node_modules
+    # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
+    ports:
+      - "3000:3000"
+    # services>nginxに依存する為services>nginxが起動してから自分も起動するという順序を定義する
+    depends_on:
+      - nginx
 
 # volumesによりボリュームが作成される
 # もし既に名前を付けているボリュームをvolumesにて指定すると、その名前の付いたボリュームからデータを参照する
