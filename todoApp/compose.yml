@@ -64,7 +64,8 @@ services:
     # services>reactに依存する為services>reactが起動してから自分も起動するという順序を定義する
     depends_on:
       - react
-    
+    networks:
+      - webnet    
 
   # フロントエンドの設定
   react:
@@ -82,6 +83,12 @@ services:
     # <Host Port>:<Container Port>なので、ホスト側のポート番号が3000で、コンテナ側を3000として設定
     ports:
       - "3000:3000"
+    networks:
+      - webnet    
+
+# 設定したサービスを同じネットワークに所属させる
+networks:
+  webnet:
 
 # volumesによりボリュームが作成される
 # もし既に名前を付けているボリュームをvolumesにて指定すると、その名前の付いたボリュームからデータを参照する

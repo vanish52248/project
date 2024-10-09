@@ -27,9 +27,7 @@ func main() {
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
 			// local環境のURL
-			"http://localhost:3000",
-			// EC2のパブリックIPアドレス
-			"http://3.112.124.235",
+			"*",
 		},
 		// 許可したいHTTPリクエストヘッダ
 		AllowHeaders: []string{
