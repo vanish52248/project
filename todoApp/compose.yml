@@ -22,6 +22,8 @@ services:
       - ./configs/.env
     environment:
       - TZ=Asia/Tokyo
+    networks:
+      - webnet    
 
 
   # バックエンドの設定 
@@ -42,6 +44,8 @@ services:
     # dbより先に起動してしまった場合にDB読み込み処理が走ってしまいエラーになる為
     depends_on:
       - db
+    networks:
+      - webnet    
 
 
   # パブリックIPv4アドレスをlocalhost:3000に接続するためのwebサーバー起動(リバースプロキシ)
