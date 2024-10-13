@@ -47,11 +47,11 @@ func main() {
 	// 各ルーティングにて”CRUD”処理を分岐
 	// ハンドラー(第二引数)側の関数の引数に【c *gin.Context】を設定することでルーティング可能
 	// ########################################################################################
-	router.POST("/create", pkg.PostTask)         // 登録
-	router.GET("/get", pkg.GetAllTask)           // 全取得
-	router.GET("/get/:id", pkg.GetDetailTask)    // 1件取得
-	router.PUT("/update/:id", pkg.PutTask)       // 更新
-	router.DELETE("/delete/:id", pkg.DeleteTask) // 削除
+	router.POST("/task/create", pkg.PostTask)         // 登録
+	router.GET("/task/get", pkg.GetAllTask)           // 全取得
+	router.GET("/task/get/:id", pkg.GetDetailTask)    // 1件取得
+	router.PUT("/task/update/:id", pkg.PutTask)       // 更新
+	router.DELETE("/task/delete/:id", pkg.DeleteTask) // 削除
 	// ########################################################################################
 
 	// 8080ポートでアプリケーションサーバーを起動
