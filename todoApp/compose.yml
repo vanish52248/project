@@ -44,7 +44,7 @@ services:
       - db
 
 
-  # TODO パブリックIPv4アドレスをlocalhost:3000に接続するためのwebサーバー起動(リバースプロキシ)
+  # パブリックIPv4アドレスをlocalhost:3000に接続するためのwebサーバー起動(リバースプロキシ)
   nginx:
     image: nginx:latest
     # 表示されるコンテナ名
@@ -59,7 +59,7 @@ services:
     volumes:
       # 下記の例だと、ホスト側のdocker-compose.ymlが配置されたディレクトリから見てweb/publicというディレクトリがコンテナ側の「/usr/share/nginx/html」ディレクトリにマウント(上書き)される
       - ./web/public:/usr/share/nginx/html
-      # 下記の例だと、ホスト側のdocker-compose.ymlが配置されたディレクトリにあるntinx.confというディレクトリがコンテナ側の「etc/nginx/nginx.conf.d」ディレクトリにマウント(上書き)される
+      # 下記の例だと、ホスト側のdocker-compose.ymlが配置されたディレクトリにあるnginx.confというファイルがコンテナ側の「etc/nginx/nginx.conf.d」ディレクトリにマウント(上書き)される
       - ./nginx.conf:/etc/nginx/nginx.conf
     # services>reactに依存する為services>reactが起動してから自分も起動するという順序を定義する
     depends_on:
