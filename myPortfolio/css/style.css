@@ -556,7 +556,8 @@ body main .main__inner .mainbg h1 {
   left: 40%;
   font-size: 80px;
   font-size: 5rem;
-  color: #000;
+  color: #151515e7;
+  line-height: 110px;
 }
 
 body main .main__inner .main-container {
