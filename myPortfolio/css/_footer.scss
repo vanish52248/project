@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Footer Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+.far,
+.fas {
+	@include fontsize(30);
+	margin-left: 5px;
+}
+footer {
+	.footer__inner {
+		width: 100%;
+		color: #fff;
+		.footer-container {
+			width: 80%;
+			text-align: center;
+			background-color: #151515;
+			h2 {
+				display: inline-block;
+				@include fontsize(25);
+				font-family: "Modern Antiqua", "Noto Sans JP", serif;
+				padding: 30px 0;
+				margin-bottom: 50px;
+				border-bottom: 3px solid #fff;
+			}
+			p {
+				padding: 30px 0;
+				&:nth-of-type(1) {
+					padding: 0 30px 30px 30px;
+				}
+			}
+			.footer-icon {
+				display: none;
+				a + a {
+					padding-left: 8px;
+				}
+			}
+		}
+	}
+}
+
+// SmartPhone Width
+//--------------------------------------------------
+@media #{$smartPhone} {
+	footer {
+		.footer__inner {
+			width: 100%;
+			.footer-container {
+				width: 100%;
+				p {
+					padding: 30px 44px;
+				}
+				.footer-icon {
+					display: block;
+				}
+			}
+		}
+	}
+}

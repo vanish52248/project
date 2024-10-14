@@ -1,0 +1,32 @@
+.party_editor_form_wrapper {
+    margin: 5% 1% 1%;
+    padding: 0.05%;
+    max-height: 600px;
+    height: 100%;
+}
+
+.party_editor_delete_icon {
+    cursor: pointer;
+}
+
+.party_editor_edit_icon {
+    cursor: pointer;
+}
+
+.party_editor_tb {
+    max-height: 650px;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.party_editor_th {
+    width: 100%;
+}
+
+.party_editor_tr:hover {
+    background-color: #f5f5f5;
+}
+
+.party_editor_tc {
+    width: 100%;
+}

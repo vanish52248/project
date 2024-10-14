@@ -1,0 +1,321 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Main Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+body {
+	text-size-adjust: 100%;
+	overflow-x: hidden;
+	font: 300 14px / 1.9 "Noto Sans JP", Arial, Verdana, 游ゴシック, YuGothic,
+		"ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo,
+		sans-serif;
+	main {
+		.main__inner {
+			color: #fff;
+			width: 80%;
+			img {
+				width: 100%;
+			}
+			.mainbg {
+				position: relative;
+				background-image: url(images/mainbg.jpg);
+				background-size: cover;
+				min-height: 100vh;
+				//メインビジュアルを100%で設定するのはNG
+				z-index: -10;
+				h1 {
+					position: absolute;
+					top: 40%;
+					left: 40%;
+					@include fontsize(80);
+					color: #000;
+				}
+			}
+			.main-container {
+				width: 100%;
+				max-width: 1080px;
+				margin: 0 auto;
+				text-align: center;
+				&:not(:nth-of-type(5)) {
+					//最後のコンタクトの上だけボーダーをつけないプロパティ
+					padding-bottom: 100px;
+					border-bottom: 2px solid #fff;
+				}
+				h2 {
+					display: inline-block;
+					@include fontsize(25);
+					font-family: "Modern Antiqua", "Noto Sans JP", serif;
+					padding: 80px 0 30px;
+					margin-bottom: 70px;
+					border-bottom: 3px solid #fff;
+				}
+				p {
+					@include fontsize(14);
+					line-height: 27px;
+					@include lineHeightErase(27px);
+					font-family: "Noto Sans JP", Arial, Verdana, 游ゴシック, YuGothic,
+						"ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", メイリオ,
+						Meiryo, sans-seri;
+					padding: 0 30px 100px;
+					text-align: left;
+				}
+				.profile-container {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					.profile-icon {
+						max-width: 40%;
+						width: 100%;
+						img {
+							max-width: 250px;
+							border-radius: 50%;
+						}
+					}
+					.profile-item {
+						@include fontsize(16);
+						text-align: left;
+						li + li {
+							padding-top: 10px;
+						}
+					}
+				}
+				.licence-container {
+					width: 80%;
+					display: flex;
+					justify-content: space-around;
+					padding-top: 60px;
+					max-width: 900px;
+					margin: 0 auto;
+					text-align: left;
+					ul, ol {
+						width: 100%;
+						padding: 0.5em 0.5em 0.5em 2em;/*ボックス内の余白*/
+						border: solid 3px gray;/*線の種類 太さ 色*/
+					}
+					ul li, ol li {
+						line-height: 1.5; /*文の行高*/
+						padding: 0.5em 0; /*前後の文との余白*/
+						@include fontsize(18);
+					}
+				}
+				.create-container {
+					display: flex;
+					justify-content: space-between;
+					margin: 0 auto;
+					padding-left: 70px;
+					text-align: initial;
+					.create-box {
+						.create-item {
+							display: flex;
+							img {
+								max-width: 240px;
+								max-height: 110px;
+								width: 240px;
+							}
+							.create-text {
+								h3 {
+									padding: 0 20px;
+								}
+								p {
+									max-width: 250px;
+									width: 100%;
+									padding: 10px 20px 0;
+								}
+							}
+						}
+						.create-item + .create-item {
+							margin-top: 30px;
+						}
+					}
+				}
+			}
+			.skill-container {
+				display: flex;
+				justify-content: space-between;
+				width: 80%;
+				margin: 0 auto;
+				.skill-box {
+					max-width: 20%;
+					width: 150px;
+					p {
+						padding: 10px;
+						margin-bottom: 35px;
+						background-color: #fff;
+						color: #000;
+						@include fontsize(16);
+						font-weight: bold;
+						border-radius: 4px;
+						text-align: center;
+					}
+					li {
+						padding-bottom: 3px;
+						border-bottom: 1px solid #fff;
+					}
+					li + li {
+						padding-top: 25px;
+					}
+				}
+			}
+		}
+	}
+}
+// SmartPhone Width
+//--------------------------------------------------
+@media screen and (min-width: 769px) {
+	.fadeD {
+		// 上から下にアニメーション
+		opacity: 0;
+		transform: translate(0, 50%);
+		transition: 1s;
+	}
+	.fadeU {
+		// 下から上にアニメーション
+		opacity: 0;
+		transform: translate(0, -50%);
+		transition: 1s;
+	}
+	.active {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+@media #{$smartPhone} {
+	body {
+		main {
+			.main__inner {
+				width: 100%;
+				.mainbg {
+					h1 {
+						top: 36%;
+						left: 28%;
+					}
+				}
+				.main-container {
+					width: 100%;
+					h2 {
+						&:nth-of-type(1) {
+							margin-bottom: 50px;
+						}
+					}
+					p {
+						padding: 0 30px 100px;
+					}
+					.profile-container {
+						display: block;
+						.profile-icon {
+							max-width: 100%;
+						}
+						.profile-item {
+							margin: 0 auto;
+							max-width: 375px;
+							padding: 30px 25px;
+							ul {
+								@include fontsize(14);
+							}
+						}
+					}
+					.licence-container {
+						max-width: 400px;
+						padding: 20px 25px;
+						flex-wrap: wrap;
+						margin: 0 auto;
+						img {
+							max-width: 47%;
+							width: 47%;
+							&:nth-of-type(n + 3) {
+								margin-top: 12px;
+							}
+						}
+					}
+					.create-container {
+						flex-direction: column;
+						justify-content: center;
+						padding-left: none;
+						margin: auto;
+						.create-box {
+							&:nth-of-type(1) {
+								margin-top: -25px;
+							}
+							//ネガティブマージン
+							& > div {
+								margin-top: 30px;
+							}
+							.create-item {
+								.create-text {
+									p {
+										max-width: 350px;
+									}
+								}
+							}
+						}
+					}
+				}
+				img {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		main {
+			.main__inner {
+				width: 100%;
+				.mainbg {
+					h1 {
+						top: 36%;
+						left: 8%;
+					}
+				}
+				.main-container {
+					p {
+						padding: 0 25px 100px;
+					}
+					.create-container {
+						padding-left: 0;
+						.create-box {
+							.create-item {
+								display: flex;
+								flex-direction: column-reverse;
+								a {
+									max-width: 240px;
+									margin: 0 auto;
+								}
+								.create-text {
+									margin: 0 auto;
+									text-align: center;
+									h3 {
+										padding: 0;
+										@include fontsize(18);
+									}
+									p {
+										padding: 0 0 8px 0px;
+									}
+								}
+							}
+						}
+					}
+					.skill-container {
+						flex-wrap: wrap;
+						.skill-box {
+							max-width: 50%;
+							width: 48%;
+							&:nth-of-type(3) {
+								margin-top: 50px;
+							}
+							&:nth-of-type(4) {
+								margin-top: 50px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

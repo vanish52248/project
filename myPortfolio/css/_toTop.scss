@@ -1,0 +1,43 @@
+@charset "utf-8";
+//--------------------------------------------------------------------------------
+// Link Style
+//--------------------------------------------------------------------------------
+// Fixed Page Top Link
+//--------------------------------------------------------------------------------
+.toTop {
+	display: none;
+	position: fixed;
+	bottom: 20px;
+	right: 70px;
+	background: url("images/toTop.png") left top no-repeat;
+	background-size: cover;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 2;
+	&:hover {
+		opacity: 0.5;
+	}
+	a {
+		display: block;
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media #{$tablet} {
+	.toTop {
+		right: 8px;
+	}
+}
+
+@media #{$smartPhone} {
+	.pageTop {
+		right: 10px;
+		background-size: 43.5px 50px;
+		a {
+			width: 43.5px;
+			height: 50px;
+		}
+	}
+}

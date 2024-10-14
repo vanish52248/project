@@ -1,0 +1,30 @@
+.header_wrapper {
+    display: flex;
+    padding: 20px 8px;
+    background-color: #fff;
+    max-height: 30px;
+    position: fixed;
+    z-index: 999;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+/* 最初のホームアイコン以外を左寄せ */
+.header_wrapper>div:first-of-type{
+    margin-right: auto;
+}
+
+.user_container {
+    line-height: 0px;
+}
+
+.user_name {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.logout_mark {
+   margin: 0 20px;
+}

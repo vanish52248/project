@@ -1,0 +1,23 @@
+.selection_rate_form_wrapper {
+    padding: 0.05% 1% 1%;
+    margin: 5% 1% 1%;
+}
+
+.party_selection_box {
+    padding: 10px;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+.enemy_box_wrapper {
+    margin-left: 1%;
+    padding: 10px;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+.select_enemy_ranking_wrapper {
+    margin: 0 0 10px 20px;
+}

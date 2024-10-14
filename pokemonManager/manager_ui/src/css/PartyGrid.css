@@ -1,0 +1,38 @@
+.grid_form_wrapper {
+    padding: 0.05% 1% 1%;
+    margin: 5% 1% 1%;
+}
+
+.party_grid_item {
+    position: relative;
+}
+
+.add_icon {
+    position: absolute;
+    right: 75px;
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.delete_icon {
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.btn_container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 30px 30px 0px auto;
+}
+
+.party_name {
+    width: 400px;
+}
+
+.register_btn {
+    width: 150px;
+    height: 50px;
+}

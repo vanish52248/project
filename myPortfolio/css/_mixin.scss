@@ -1,0 +1,41 @@
+@charset "utf-8";
+//--------------------------------------------------------------------------------
+// Mixin
+//--------------------------------------------------------------------------------
+// Font Size
+@mixin fontsize($size) {
+	font-size: $size + px;
+	font-size: ($size / 16) * 1rem;
+}
+
+// Line-Heightの上の余白消す
+@mixin lineHeightErase($line-height) {
+	&::before {
+		display: block;
+		width: 0;
+		height: 0;
+		margin-top: calc((1 - #{$line-height}) * 0.5em);
+		content: "";
+	}
+	&::after {
+		display: block;
+		width: 0;
+		height: 0;
+		margin-bottom: calc((1 - #{$line-height}) * 0.5em);
+		content: "";
+	}
+}
+
+// Transition
+@mixin transition($sec) {
+	transition: all $sec + s ease;
+}
+
+// Clearfix
+@mixin clearfix {
+	&::after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}

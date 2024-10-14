@@ -1,0 +1,27 @@
+.battle_record_editor_dialog_wrapper {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.editor_my_pokemon_wrapper {
+    margin-top: 10px;
+}
+.editor_enemy_pokemon_wrapper {
+    margin-top: 10px;
+}
+
+.editor_party_box {
+    padding: 10px;
+    border: 1px solid #808080;
+    margin: 0 0 10px 20px;
+    border-radius: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.editor_my_pokemon_box {
+    width: 100%;
+}
+.editor_enemy_pokemon_box {
+    width: 100%;
+}

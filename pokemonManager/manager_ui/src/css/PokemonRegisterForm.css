@@ -1,0 +1,62 @@
+.form_wrapper {
+    margin: 5% 1% 1%;
+    padding: 0.05%;
+}
+
+.name_container {
+    margin: 20px 0 10px 10px;
+
+}
+
+.pokemon_name {
+    margin-top: 1%;
+    width: 100%;
+    max-width: 350px;
+}
+
+.possession {
+    display: block;
+}
+.param_container {
+    display: flex;
+    max-width: 230px;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+
+.status_box {
+    width: 100%;
+    max-height: 50px;
+    max-width: 100px;
+}
+
+.effort_box {
+    width: 100%;
+    max-height: 50px;
+    max-width: 100px;
+}
+
+.status_box + .status_box {
+    margin-top: 20px;
+}
+
+.effort_box + .effort_box {
+    margin-top: 20px;
+}
+
+.personality_container {
+    margin-bottom: 10px;
+}
+
+.form_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1%;
+}
+
+.register_btn {
+    width: 100%;
+    max-width: 150px;
+    height: 50px;
+}

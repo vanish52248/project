@@ -1,0 +1,182 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Header Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+
+header {
+	.header__inner {
+		width: 100%;
+		.sidebar-container {
+			position: fixed;
+			right: 0;
+			width: 20%;
+			height: 100%;
+			padding-left: 4%;
+			.sidebar-logo {
+				margin: 30px 30px 0 0;
+				max-width: 300px;
+				max-height: 150px;
+			}
+			.sidebar {
+				padding-top: 30px;
+				li + li {
+					padding-top: 30px;
+				}
+				a {
+					color: #fff;
+					font-family: "Modern Antiqua", "Noto Sans JP", serif;
+				}
+				.button_link {
+					text-decoration: none;
+					position: relative;
+				}
+				.button_link:hover {
+					opacity: 1;
+					transition: 0.3s ease;
+				}
+				.button_link::after {
+					display: block;
+					content: "";
+					height: 1px;
+					position: absolute;
+					bottom: -6px;
+					left: 50%;
+					width: 0;
+					height: 1px;
+					background: #fff;
+					transition: 0.3s ease;
+					transform: translateX(-50%);
+				}
+				.button_link:hover::after {
+					width: 100%;
+					transition: 0.3s ease;
+				}
+			}
+		}
+		.sidebar-icon {
+			padding-top: 45px;
+			a + a {
+				padding-left: 8px;
+			}
+		}
+		.header-logo {
+			max-width: 150px;
+			margin: 0 auto;
+			display: none;
+		}
+	}
+}
+
+// SmartPhone Width
+//--------------------------------------------------
+@media #{$smartPhone} {
+	//ハンバーガーメニューの記述
+	header {
+		.header__inner {
+			justify-content: center;
+			nav {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				visibility: hidden;
+				opacity: 0;
+				transition: 0.5s;
+				background-color: rgba(0, 0, 0, 0.5);
+				ul {
+					position: absolute;
+					// top: 50%;
+					right: auto;
+					// transform: translateY(-50%);
+					flex-direction: column;
+					align-items: flex-start;
+					li {
+						margin: 20px;
+						a {
+							font-size: 23px;
+							color: white;
+						}
+					}
+				}
+			}
+			.sidebar-container {
+				width: auto;
+				height: auto;
+				padding-left: none;
+				.sidebar-logo {
+					display: none;
+				}
+			}
+			.sidebar-icon {
+				display: none;
+			}
+			.header-logo {
+				background-color: #000;
+				display: block;
+			}
+		}
+	}
+}
+.btn-trigger {
+	position: absolute;
+	top: 37px;
+	right: 30px;
+	width: 34px;
+	height: 28px;
+	transform: translateY(-50%);
+	cursor: pointer;
+	span {
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 4px;
+		background-color: #383838;
+		border-radius: 4px;
+		&:nth-of-type(1) {
+			top: 0px;
+		}
+		&:nth-of-type(2) {
+			top: 12px;
+		}
+		&:nth-of-type(3) {
+			bottom: 0px;
+		}
+	}
+}
+.btn-trigger,
+.btn-trigger span {
+	display: inline-block;
+	position: fixed;
+	transition: all 0.5s;
+	box-sizing: border-box;
+}
+.btn__active {
+	span {
+		background-color: #fff;
+		&:nth-of-type(1) {
+			transform: translateY(12px) rotate(-45deg);
+			top: 0;
+		}
+		&:nth-of-type(2) {
+			top: 12px;
+			left: 50%;
+			opacity: 0;
+			animation: active-btn-bar02 0.8s forwards;
+		}
+		&:nth-of-type(3) {
+			bottom: 0;
+			transform: translateY(-12px) rotate(45deg);
+		}
+	}
+}
+
+@media (min-width: 769px) {
+	.btn-trigger {
+		display: none;
+	}
+}

@@ -1,0 +1,68 @@
+.battle_record_form_wrapper{
+    padding: 0.05% 1% 1%;
+    margin: 5% 1% 1%;
+}
+
+.rank_container {
+    margin: 10px 0 0 10px;
+}
+
+.party_container {
+    margin: 0 0 10px 10px;
+}
+
+.party_select_container {
+    display: flex;
+}
+
+.party_box {
+    padding: 10px;
+    border: 1px solid #808080;
+    margin: 0 0 10px 20px;
+    border-radius: 20px;
+}
+
+.grid_container {
+    border: #808080 0.5px solid;
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.pokemon_name {
+    margin: 10px;
+}
+/* 自分のパーティー6匹の内3匹だけ選択したときのCSS */
+.pokemon_name_click {
+    background-color: #ffff00;
+}
+
+.enemy_pokemon_wrapper {
+    margin-top: 10px;
+}
+
+.enemy_pokemon_box + .enemy_pokemon_box {
+    margin-top: 20px;
+}
+
+
+.enemy_pokemon_item {
+    max-width: 400px;
+    width: 100%;
+}
+
+.win_rate_box {
+    padding: 10px;
+    border: 1px solid #808080;
+    margin: 0 0 10px 20px;
+    border-radius: 20px;
+}
+
+.win_rate_text {
+    line-height: 50px !important;
+}
+
+.result_container {
+    margin: 0 0 10px 10px;
+}

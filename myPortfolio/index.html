@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Portfolio</title>
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+		integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous" />
+</head>
+
+<body style="background-color: black">
+	<div class="body__inner">
+		<header>
+			<div class="header__inner">
+				<!-- サイドバーの記述 -->
+				<div class="sidebar-container">
+					<nav>
+						<div class="sidebar-logo">
+							<img src="images/main__logo.png" alt="" />
+						</div>
+						<ul class="sidebar">
+							<li><a href="#" class="button_link">TOP</a></li>
+							<li><a href="#page1" class="button_link">ABOUT ME</a></li>
+							<li><a href="#page2" class="button_link">CREATE</a></li>
+							<li><a href="#page3" class="button_link">SKILL</a></li>
+							<li><a href="#page4" class="button_link">MESSAGE</a></li>
+							<li><a href="#page5" class="button_link">CONTACT</a></li>
+						</ul>
+						<div class="sidebar-icon">
+							<a href="https://github.com/vanish52248?tab=repositories" target="_blank"
+								rel="noopener noreferrer"><i class="fab fa-github-square fa-lg"></i></a>
+							<a href="#"><i class="fab fa-twitter-square fa-lg"></i></a>
+							<a href="#"><i class="fab fa-instagram-square fa-lg"></i></a>
+						</div>
+					</nav>
+				</div>
+				<div class="header-logo">
+					<img src="images/main__logo.png" alt="" />
+				</div>
+
+				<!-- ハンバーガーメニューの記述 -->
+				<div class="btn-trigger" id="btn">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<div class="main__inner">
+				<!-- メインコンテンツの記述 -->
+				<div class="mainbg">
+					<h1>Portfolio</h1>
+				</div>
+				<div class="main-container fadeIn fadeD">
+					<h2 id="page1">ABOUT ME<i class="far fa-address-card"></i></h2>
+					<!-- プロフィールの記述 -->
+					<div class="profile-container">
+						<div class="profile-icon">
+							<img src="images/my_icon.jpg" alt="" />
+						</div>
+						<div class="profile-item">
+							<ul>
+								<li>名前：平野 哲矢</li>
+								<li>出身：秋田県（現在は埼玉県在住）</li>
+								<li>学歴：公立普通科高校/高卒</li>
+								<li>活動：高校卒業後→大工→介護職→接客業→IT企業</li>
+								<li>資格：下記資格を全て2週間で取得致しました。</li>
+								<li>その他：paizaのスキルチェックはBランクです。</li>
+							</ul>
+						</div>
+					</div>
+					<div class="licence-container fadeIn fadeD">
+						<ul>
+							<li>1. Oracle Java Bronze</li>
+							<li>2. Oracle Java Silver</li>
+							<li>3. LPIC 101</li>
+							<li>4. LPIC 102</li>
+							<li>5. ITパスポート</li>
+							<li>6. OracleMaster Silver SQL2019</li>
+							<li>7. AWS Certified Solutions Architect Associate</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="main-container">
+					<h2 id="page2">CREATE<i class="fas fa-pencil-alt"></i></h2>
+					<!-- 成果物の記述 -->
+					<div class="create-container fadeIn fadeD">
+						<!-- 左と右で分割した際の左側の枠組みのため 奇数番目を配置 一番上が一番新しいプロジェクト-->
+						<div class="create-box">
+
+							<!-- 成果物７個目 -->
+							<div class="create-item">
+								<a href="http://3.112.124.235/top/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg10.png" alt="" /></a>
+								<div class="create-text">
+									<h3>Go/ReactのTODOアプリ</h3>
+									<p>設計からリリースまでを考えて実装</p>
+								</div>
+							</div>
+
+							<!-- 成果物５個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/My_Site05/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg05.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写⑤</h3>
+									<p>サイドバーとフェードインのjqueryの実装</p>
+								</div>
+							</div>
+
+							<!-- 成果物３個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/My_Site03/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg03.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写③</h3>
+									<p>固定背景やロゴの使い方</p>
+								</div>
+							</div>
+
+							<!-- 成果物１個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/My_Site01/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg01.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写①</h3>
+									<p>2カラムレイアウトの実装</p>
+								</div>
+							</div>
+
+						</div>
+
+						<!-- 左と右で分割した際の右側の枠組みの為 偶数番目を配置 一番上が一番新しい-->
+						<div class="create-box">
+
+							<!-- 成果物６個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/CopyCodingSite06/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg06.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写⑥</h3>
+									<p>固定ヘッダーとレスポンシブデザインの実装</p>
+								</div>
+							</div>
+
+
+							<!-- 成果物４個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/My_Site04/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg04.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写④</h3>
+									<p>お問い合わせフォームやマウスオーバーの多様性</p>
+								</div>
+							</div>
+
+							<!-- 成果物２個目 -->
+							<div class="create-item">
+								<a href="https://vanish52248.github.io/My_Site02/" target="_blank"
+									rel="noopener noreferrer"><img src="images/createimg02.png" alt="" /></a>
+								<div class="create-text">
+									<h3>模写②</h3>
+									<p>ヘッダーフッターの実装</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="main-container">
+					<h2 id="page3">SKILL<i class="fas fa-quran"></i></h2>
+					<!-- スキルの記述 -->
+					<div class="skill-container fadeIn fadeD">
+						<div class="skill-box">
+							<p>言語</p>
+							<ul>
+								<li>Python</li>
+								<li>Java</li>
+								<li>Js/Ts</li>
+							</ul>
+						</div>
+						<div class="skill-box">
+							<p>FW・Lib</p>
+							<ul>
+								<li>Django</li>
+								<li>React</li>
+								<li>SpringBoot</li>
+							</ul>
+						</div>
+						<div class="skill-box">
+							<p>開発環境</p>
+							<ul>
+								<li>Windows</li>
+								<li>Linux</li>
+							</ul>
+						</div>
+						<div class="skill-box">
+							<p>その他</p>
+							<ul>
+								<li>SQL</li>
+								<li>Git</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-container fadeIn fadeD">
+					<h2 id="page4">MESSAGE<i class="far fa-comment-dots"></i></h2>
+					<!-- メッセージの記述 -->
+					<p>
+						ロジックや設計を考えながらコードを書くのが大好きです。<br />
+						フロントエンドとバックエンドの実務経験があり、幅広く対応できます。
+						過去業務に参画しながら資格を2週間で1つのペースで3つ取得した経緯がある為 モチベーション高く仕事に臨めます。<br />
+						「綺麗で分かりやすいコード」をモットーにお世話になる開発チームで高みを目指していきたいです。<br />
+						長く貢献しつつ成長をしていくことで、現場内で頼れる人材となり、ゆくゆくは開発リーダーとして上流工程やPL/PM業務など経験したいと考えております。
+					</p>
+				</div>
+
+				<div class="toTop">
+					<!-- toTopの記述 -->
+					<a href="#">TOP</a>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="footer__inner">
+				<!-- フッターの記述 -->
+				<div class="footer-container fadeIn fadeD">
+					<h2 id="page5">CONTACT<i class="far fa-paper-plane"></i></h2>
+					<!-- コンタクトの記述 -->
+					<p>
+						制作のご依頼・ご相談（無料）などは当サイトSNSアイコンよりご連絡下さい。
+					</p>
+					<div class="footer-icon">
+						<a href="https://github.com/vanish52248?tab=repositories" target="_blank"
+							rel="noopener noreferrer"><i class="fab fa-github-square fa-lg"></i></a>
+						<a href="#"><i class="fab fa-twitter-square fa-lg"></i></a>
+						<a href="#"><i class="fab fa-instagram-square fa-lg"></i></a>
+					</div>
+					<p><small>Copyright &copy 2021 thfield </small></p>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- javaScript -->
+<script type="text/javascript" src="js/common.js"></script>
+
+</html>
